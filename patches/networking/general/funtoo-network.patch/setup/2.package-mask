@@ -1,0 +1,3 @@
+# this causes segfaults
+# 1.4.4-r2 appears to be okay
+=net-misc/networkmanager-1.10.2

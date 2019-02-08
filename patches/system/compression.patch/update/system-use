@@ -1,0 +1,3 @@
+use:
+# we must first build libarchive without lz4, then rebuild it ...
+ - lz4

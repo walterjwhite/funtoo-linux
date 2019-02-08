@@ -1,0 +1,15 @@
+/var/log/portage/*.log {
+    su portage portage
+    createolddir 755 portage portage
+    rotate 30
+    weekly
+    nocreate
+    missingok
+    ifempty
+    olddir /var/log/portage/old
+    compress
+
+#    To regularly delete logs add the line maxage N to the config file, where N is the number of days after which the log file will be deleted.
+#  delete files older than 30 days
+   maxage 30
+}

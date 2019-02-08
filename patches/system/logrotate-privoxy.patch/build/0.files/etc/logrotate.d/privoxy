@@ -1,0 +1,25 @@
+/var/log/privoxy/log {
+    createolddir 755 root root
+    rotate 30
+    daily
+    nocreate
+    missingok
+    ifempty
+    olddir /var/log/privoxy/old
+
+    compress
+    
+    # only retain logs for 30 days
+    maxage 30
+    
+    sharedscripts
+    
+    # ensure the dnstap file is clean before rotating it
+    prerotate
+        /usr/sbin/stop-service privoxy > /dev/null 2>&1 || true
+    endscript
+    
+    postrotate
+        /usr/sbin/restart-service privoxy > /dev/null 2>&1 || true
+    endscript
+}

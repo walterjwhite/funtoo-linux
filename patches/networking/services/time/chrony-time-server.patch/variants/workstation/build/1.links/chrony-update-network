@@ -1,0 +1,5 @@
+path: /usr/sbin/chrony-update-network
+targets:
+- /etc/network/default/up/0.3.chrony-update-network
+- /etc/network/wjw/up/0.3.chrony-update-network
+- /etc/network/work/up/0.3.chrony-update-network

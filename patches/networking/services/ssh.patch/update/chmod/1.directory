@@ -1,0 +1,3 @@
+# ensure SSH server permissions are correct
+path: /etc/ssh
+mode: 755

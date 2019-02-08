@@ -1,0 +1,26 @@
+Host *
+	IdentityFile ~/.ssh/id_ecdsa
+	#IdentityFile ~/.ssh/id_rsa
+	Protocol 2
+
+	# share the same connection on all sessions to the same host (reduce bandwidth)
+	ControlMaster auto
+	ControlPath ~/.ssh/socket/%r@%h:%p
+
+	Compression yes
+
+	# only use IPv4 lookups, bypass IPv6
+	AddressFamily inet
+
+	# send a keep-alive every 120 seconds
+	#ServerAliveInterval 120
+
+	# this is broken as per gentoo: https://bugs.gentoo.org/237778 / https://forums.gentoo.org/viewtopic-t-842298-start-0.html
+	ForwardX11 yes
+	ForwardX11Trusted yes
+
+	KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+	Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+	MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+
+	PasswordAuthentication no

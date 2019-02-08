@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# update locate for our specific configuration
+_contains=$(grep -c media /etc/updatedb.conf)
+
+if [ "$_contains" -le "0" ]
+then
+	sed -i "s/^PRUNEPATHS\=\"/PRUNEPATHS\=\"\/builds \/media \/VM \/home \/projects \/rw/" /etc/updatedb.conf
+fi

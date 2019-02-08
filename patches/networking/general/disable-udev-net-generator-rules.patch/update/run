@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# this generates a file which interferes with what we're doing ...
+rm -f /lib/udev/rules.d/75-persistent-net-generator.rules

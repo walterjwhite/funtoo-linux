@@ -1,0 +1,24 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+_files=/tmp/.linux.files
+_unique_files=/tmp/.linux.unique.files
+
+find patches -type f | grep "files/" | grep -Pv "^$" > $_files
+cat $_files | sed -e "s/^.*files\///" | sort -u      > $_unique_files
+
+while read _unique_file
+do
+	# for files with special names, this causes an issue, we need to escape those wild characters
+	_count=$(cat $_files | grep -Pc "^.*files\/${_unique_file}$")
+	if [ -n "$_count" ] && [ "$_count" -gt "1" ]
+	then
+		echo -e "$_unique_file is duplicated:"
+		cat $_files | grep -P "^.*files\/${_unique_file}$"
+		
+		echo -e ""
+	fi
+done < $_unique_files
+
+#rm -f $_unique_files $_files

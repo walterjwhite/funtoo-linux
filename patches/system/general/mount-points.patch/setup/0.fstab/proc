@@ -1,0 +1,3 @@
+mountPoint: /proc
+device: proc
+vfsType: PROC

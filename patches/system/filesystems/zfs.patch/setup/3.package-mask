@@ -1,0 +1,4 @@
+# ZFS 9999 is broken, so apparently we shouldn't use it
+# the latest supported kernel is 4.16 via 0.7.9, but only 0.7.6 is available, therefore 4.15 ...
+>sys-kernel/gentoo-sources-4.15.0
+

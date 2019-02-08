@@ -1,0 +1,27 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# check for phases with multiple tasks that are not prefixed with a number as they may have problems later on
+# ie. trying to add a user to a group before first creating the user ...
+
+_print_warning() {
+	_message=$1
+	_warning="$2"
+	if [ -n "$_warning" ]
+	then
+		echo -e "##################################################"
+		echo -e "# $_message"
+		echo -e "##################################################"
+		
+		echo -e "$_warning"
+	fi
+}
+
+_package_settings=$(find . -type f| grep -P "(system.use|package.use|package.accept_keywords|package.license|package.mask|package.unmask)$" | grep -v setup)
+_downloads=$(find . -type f | grep -P "(downloads)$" | grep -v setup)
+_packages=$(find . -type f | grep add.packages$ | grep -v build)
+
+_print_warning "Package settings should be in the setup phase" "$_package_settings"
+_print_warning "downloads should be in the setup phase" "$_downloads"
+_print_warning "packages should be in the build phase" "$_packages"

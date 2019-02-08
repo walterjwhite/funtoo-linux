@@ -1,0 +1,31 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+_PATCH_TEMP_FILE=/tmp/patches
+_SYSTEM_PATCHES_TEMP_FILE_TEMP=/tmp/system-patches.temp
+_SYSTEM_PATCHES_TEMP_FILE=/tmp/system-patches
+
+# list all patches
+rm -f $_PATCH_TEMP_FILE $_SYSTEM_PATCHES_TEMP_FILE
+find patches -type d | grep \\.patch | sed -e "s/\\.patch\/.*$/.patch/" | sed -e "s/patches\///" | sort -u > $_PATCH_TEMP_FILE
+
+# subtract patches from systems
+for _system in $(find systems -maxdepth 1 -type d | grep -v systems$)
+do
+	for _patch in $(grep -v "^$" $_system/patches | grep -v "^#")
+	do
+		_is_patch=$(echo -e $_patch | grep -c \\.patch$)
+		
+		if [ "$_is_patch" -eq "1" ]
+		then
+			echo -e $_patch >> $_SYSTEM_PATCHES_TEMP_FILE_TEMP
+		else
+			find patches/$_patch -type d | grep \\.patch$ | sed -e "s/patches\///" >> $_SYSTEM_PATCHES_TEMP_FILE_TEMP
+		fi
+	done
+done
+
+cat $_SYSTEM_PATCHES_TEMP_FILE_TEMP | sort -u > $_SYSTEM_PATCHES_TEMP_FILE
+diff $_PATCH_TEMP_FILE $_SYSTEM_PATCHES_TEMP_FILE | grep \< | sed -e "s/< //" | sed -e "s/^/patches\//"
+rm -f $_SYSTEM_PATCHES_TEMP_FILE_TEMP $_PATCH_TEMP_FILE $_SYSTEM_PATCHES_TEMP_FILE

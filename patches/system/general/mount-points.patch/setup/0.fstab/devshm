@@ -1,0 +1,3 @@
+mountPoint: /dev/shm
+device: tmpfs
+vfsType: TMPFS

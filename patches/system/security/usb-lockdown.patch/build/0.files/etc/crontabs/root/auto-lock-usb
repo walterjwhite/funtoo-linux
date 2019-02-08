@@ -1,0 +1,2 @@
+# after the system has been up for 5 minutes, lockdown the USB devices
+@reboot at now + 5 min -f /usr/sbin/auto-lock-usb 2>&1 | /usr/bin/wjw-log 'lock-usb - cron @ reboot'

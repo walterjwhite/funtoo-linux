@@ -1,0 +1,18 @@
+#
+# /etc/securetty
+# http://www.faqs.org/docs/securing/chap5sec41.html
+#
+
+#console
+
+# Disable root login from ttys
+#tty1
+#tty2
+#tty3
+#tty4
+#tty5
+#tty6
+#ttyS0
+#hvc0
+
+# End of file

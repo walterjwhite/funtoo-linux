@@ -1,0 +1,4 @@
+path: /etc/cron.weekly
+recursive: True
+owner: root
+group: root

@@ -1,0 +1,4 @@
+path: /etc/cron.daily
+recursive: True
+owner: root
+group: root

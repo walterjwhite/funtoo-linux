@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# update mlocate database of files
+updatedb

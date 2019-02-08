@@ -1,0 +1,108 @@
+#!/bin/bash
+
+cd /tmp
+
+if [ ! -e "/usr/sbin/munin-node" ]
+then
+	echo -e "ERROR: munin-node is not installed"
+	exit 1
+fi
+
+# manually configure munin
+rm -f /etc/munin/plugins/*
+
+ln -sf /usr/libexec/munin/plugins/buddyinfo                   /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/cpu                         /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/cpuspeed                    /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/df                          /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/df_abs                      /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/df_inode                    /etc/munin/plugins/
+
+
+# specify which disks
+ln -sf /usr/libexec/munin/plugins/diskstat_                   /etc/munin/plugins/diskstat_*
+
+ln -sf /usr/libexec/munin/plugins/diskstats                   /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/entropy                     /etc/munin/plugins/
+
+# specify which files
+ln -sf /usr/libexec/munin/plugins/files_                      /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/forks                       /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/fw_conntrack                /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/fw_forwarded_local          /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/fw_packets                  /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/hddtemp                     /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/hddtemp2                    /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/hddtemp_smartctl            /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/hddtempd                    /etc/munin/plugins/
+
+
+# wired
+ln -sf /usr/libexec/munin/plugins/if_                         /etc/munin/plugins/if_eth0
+ln -sf /usr/libexec/munin/plugins/if_err_                     /etc/munin/plugins/if_err_eth0
+
+ln -sf /usr/libexec/munin/plugins/interrupts                  /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/iostat                      /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/iostat_ios                  /etc/munin/plugins/
+
+# monitor all IP addresses
+ln -sf /usr/libexec/munin/plugins/ip_                         /etc/munin/plugins/ip_*
+
+ln -sf /usr/libexec/munin/plugins/irqstats                    /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/load                        /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/lpstat                      /etc/munin/plugins/
+
+# configure to monitor motherboard sensors
+##ln -sf /usr/libexec/munin/plugins/mbmon_
+
+ln -sf /usr/libexec/munin/plugins/meminfo                     /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/memory                      /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/multips                     /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/multips_memory              /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/munin_stats                 /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/munin_update                /etc/munin/plugins/
+
+
+ln -sf /usr/libexec/munin/plugins/netopia                     /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/netstat                     /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/netstat_multi               /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/open_files                  /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/open_inodes                 /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/port_                       /etc/munin/plugins/port_ssh
+ln -sf /usr/libexec/munin/plugins/port_                       /etc/munin/plugins/port_domain
+ln -sf /usr/libexec/munin/plugins/port_                       /etc/munin/plugins/port_bootps
+ln -sf /usr/libexec/munin/plugins/port_                       /etc/munin/plugins/port_bootpc
+ln -sf /usr/libexec/munin/plugins/port_                       /etc/munin/plugins/port_ntp
+
+ln -sf /usr/libexec/munin/plugins/proc                        /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/proc_pri                    /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/processes                   /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/ps_                         /etc/munin/plugins/ps_*
+ln -sf /usr/libexec/munin/plugins/psu_                        /etc/munin/plugins/psu_*
+
+##ln -sf /usr/libexec/munin/plugins/sensors_
+##ln -sf /usr/libexec/munin/plugins/smart_
+
+#ln -sf /usr/libexec/munin/plugins/swap                        /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/tcp                         /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/threads                     /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/uptime                      /etc/munin/plugins/
+ln -sf /usr/libexec/munin/plugins/users                       /etc/munin/plugins/
+
+ln -sf /usr/libexec/munin/plugins/vmstat                      /etc/munin/plugins/
+
+# additional contrib plugins
+cp /tmp/downloads/chrony-munin-plugin                      /etc/munin/plugins/
+cp /tmp/downloads/clamav-munin-plugin                      /etc/munin/plugins/
+
+# setup log directory
+mkdir -p /var/log/munin
+

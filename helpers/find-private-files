@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# SSH keys (public / private)
+echo -e "## checking for SSH keys ##"
+find . | grep ssh | grep -P "key($|.pub$)"
+echo -e "\n\n"
+
+# passwords
+echo -e "## checking for passwords ##"
+grep password . -ir | grep -v "minimum_password_length" | grep -vi iscsi_password | grep -v find-private-files | grep -vi passwordauthentication | grep -v ^.git | grep -v etc/pam.d | grep -v etc/slim.conf | grep -v etc/ssh/sshd_config | grep -v etc/login.defs | grep -v etc/rkhunter.conf | grep -v etc/logstash/conf.d/40-bro.conf | grep -v etc/libuser.conf | grep -v etc/default/useradd | grep -v etc/default/passwd | grep -v password_pbkdf2
+echo -e "\n\n"
+
+# email accounts
+echo -e "## checking for email accounts ##"
+grep -P "\@.*\\.com" . -ir | grep -v "^./.git"

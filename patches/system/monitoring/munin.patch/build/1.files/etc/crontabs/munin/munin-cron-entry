@@ -1,0 +1,6 @@
+#
+# cron-jobs for munin
+#
+
+# updated to use the lowest CPU priority to avoid impacting the system
+*/5 * * * *     test -x /usr/bin/munin-cron && nice -n 19 /usr/bin/munin-cron 2>&1 | /usr/bin/wjw-log "munin-cron (cron/5)"

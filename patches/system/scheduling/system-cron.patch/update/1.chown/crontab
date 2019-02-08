@@ -1,0 +1,4 @@
+path: /etc/crontab
+recursive: True
+owner: root
+group: root

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# @see: https://www.kernel.org/doc/Documentation/usb/authorization.txt
+# this runs automatically (via at daemon) 5 minutes after system has booted up
+# if any devices are connected after that time, they will not work
+# unless you run /usr/sbin/unlock-usb
+
+# by default, do NOT authorize USB devices
+for d in $(ls /sys/bus/usb/devices/ | grep "usb.*")
+do
+	echo 0 > /sys/bus/usb/devices/$d/authorized_default
+done

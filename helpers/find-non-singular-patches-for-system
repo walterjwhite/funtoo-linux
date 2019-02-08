@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+for p in $(./helpers/find-patches-for-system $1 | grep ^patches)
+do
+	if [ ! -e $p/.single ]
+	then
+		echo -e $p
+	fi
+done

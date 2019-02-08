@@ -1,0 +1,12 @@
+#!/bin/bash
+
+_exists=0
+if [ -e /etc/cron.allow ]
+then
+	_exists=$(grep -Pc "^w$" /etc/cron.allow 2>/dev/null)
+fi
+
+if [ "$_exists" -eq "0" ]
+then
+	echo -e "w\n" >> /etc/cron.allow
+fi

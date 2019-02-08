@@ -1,0 +1,3 @@
+virtualEnvPath: /opt/virtualenv/production
+indexUrl: http://localhost:3141/default/default
+

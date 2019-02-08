@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# ignore git files
+# ignore etc/init.d scripts
+grep logger . -r \
+| grep -v "logger -t" \
+| grep -v "walterjwhite_logger" \
+| grep -v \\.py \
+| grep -v "simplelogger.properties" \
+| sed -e "s/\:.*$//" \
+| grep -v "^./\.git" \
+| grep -v etc/init.d \
+| grep bin \
+| sort -u

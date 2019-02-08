@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+find patches -type l | grep -v \\.patch/hooks

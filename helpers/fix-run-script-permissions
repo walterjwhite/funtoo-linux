@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# ensure all run scripts are executable
+for file in $(find patches -type f 2>/dev/null | grep run$)
+do
+	chmod +x $file
+done
+
+# ensure all executables in /usr/bin and /usr/sbin are executable
+for file in $(find patches -type f 2>/dev/null | grep -P "/usr/(sbin|bin)/")
+do
+	chmod +x $file
+done

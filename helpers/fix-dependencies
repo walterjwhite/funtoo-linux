@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+for patch in $(find patches -type d | grep \\.patch$ | sed -e "s/\.patch\/.*/.patch/")
+do
+	name=$(basename $patch | sed -e "s/\\.patch$//")
+	if [ "$name" != "kernel" ]
+	then
+		if [ -e "$patch/dependencies" ]
+		then
+			contains=$(grep kernel $patch/dependencies -c)
+			
+			if [ "$contains" -eq "0" ]
+			then
+				echo -e "kernel\n" >> $patch/dependencies
+			fi
+		else
+			echo -e "kernel\n" >> $patch/dependencies
+		fi
+	fi
+done

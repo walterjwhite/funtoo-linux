@@ -1,0 +1,17 @@
+##*.ks~
+##*.*~
+*~
+.~lock*
+
+*.pyc
+
+*patch.tex
+*.idea
+*.aux
+*.idx
+*.lof
+*.lot
+*.log
+*.out
+*.toc
+

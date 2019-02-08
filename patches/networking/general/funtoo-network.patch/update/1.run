@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# add users to netdev group
+# correction, plugdev
+for user in $(grep ^users /etc/group | awk -F ':' {'print$4'} | tr ',' '\n')
+do
+	_exists=$(grep $user /etc/passwd -c)
+	
+	if [ "$_exists" -gt "0" ]
+	then
+		usermod -G plugdev -a $user
+	fi
+done
+

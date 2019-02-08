@@ -1,0 +1,4 @@
+mountPoint: /var/log
+device: LABEL=log
+vfsType: EXT4
+options: nofail

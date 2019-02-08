@@ -1,0 +1,1 @@
+@daily curator --host localhost delete indices --older-than 365 --time-unit days --timestring %Y.%m.%d | /usr/bin/wjw-log 'elasticsearch - prune stale data (@cron.daily)'

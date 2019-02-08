@@ -1,0 +1,47 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+if [ "$#" -lt "1" ]
+then
+	echo -e "Please specify the system to query"
+	exit 1
+fi
+
+_systems="base\n$1"
+shift
+
+if [ "$#" -lt "1" ]
+then
+	_PORTAGE_FILE=/var/lib/portage/world
+else
+	_PORTAGE_FILE=$1/var/lib/portage/world
+	shift
+fi
+
+_PACKAGES_TEMP_FILE=/tmp/requested-packages
+_PACKAGES_SORTED_TEMP_FILE=/tmp/requested-packages.sorted
+_DIFF_TEMP_FILE=/tmp/packages-not-installed
+_PORTAGE_SORTED_FILE=/tmp/portage.sorted
+
+rm -f $_PACKAGES_TEMP_FILE $_DIFF_TEMP_FILE $_PACKAGES_SORTED_TEMP_FILE
+
+for _system in $(echo -e $_systems)
+do
+	for _patch in $(grep -v "^$" systems/$_system/patches | grep -v "^#")
+	do
+		if [ -e patches/$_patch ]
+		then
+			for _f in $(find patches/$_patch | grep add-packages)
+			do
+				cat $_f | grep -v "^#" | grep -v "^$" >> $_PACKAGES_TEMP_FILE
+			done
+		fi
+	done
+done
+
+cat $_PACKAGES_TEMP_FILE | sort -u > $_PACKAGES_SORTED_TEMP_FILE
+cat $_PORTAGE_FILE | sort -u > $_PORTAGE_SORTED_FILE
+
+diff $_PACKAGES_SORTED_TEMP_FILE $_PORTAGE_SORTED_FILE | grep "<" | awk -F ' ' {'print$2'} > $_DIFF_TEMP_FILE
+rm -f $_TEMP_FILE $_PACKAGES_TEMP_FILE

@@ -1,0 +1,12 @@
+username: test
+uid: 1000
+groups:
+- users
+- wheel
+- audio
+- video
+- portage
+shell: /bin/zsh
+
+# real password hash goes here
+password: ''

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+/usr/bin/wjw-log "system-update" "starting system update"
+for p in $(ls /etc/system-update | sort -u)
+do
+	source /etc/system-update/$p
+	
+	_COMMAND=$EXECUTABLE
+	if [ -n "$EXECUTABLE_USER" ]
+	then
+		_COMMAND="sudo -u $EXECUTABLE_USER $_COMMAND"
+	fi
+	if [ -n "$EXECUTABLE_TIMEOUT" ]
+	then
+		_COMMAND="timeout $EXECUTABLE_TIMEOUT $_COMMAND"
+	fi
+	
+	$_COMMAND 2>&1 | /usr/bin/wjw-log "system-update: $p"
+	
+	unset EXECUTABLE
+	unset EXECUTABLE_USER
+	unset EXECUTABLE_TIMEOUT
+done
+
+/usr/bin/wjw-log "system-update" "completed system update"

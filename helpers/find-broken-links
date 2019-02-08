@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# check for broken links
+_broken_links=$(find patches -xtype l 2>/dev/null | grep -v "^$")
+_count=$(echo -e ${_broken_links} | grep -v "^$" | wc -l)
+
+if [ "$_count" -gt "0" ]
+then
+	echo -e "$_count broken links exist.\n\n"
+	echo -e $_broken_links
+	
+	exit 1
+fi

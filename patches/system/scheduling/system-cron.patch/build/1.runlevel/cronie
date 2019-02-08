@@ -1,0 +1,3 @@
+serviceName: cronie
+runlevel: boot
+runlevelAction: Add

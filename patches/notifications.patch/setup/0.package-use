@@ -1,0 +1,3 @@
+# build mesg/wall/write to notify users
+sys-apps/util-linux tty-helpers
+

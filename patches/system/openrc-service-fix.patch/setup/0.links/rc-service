@@ -1,0 +1,4 @@
+path: /sbin/rc-service
+targets:
+- /sbin/service
+

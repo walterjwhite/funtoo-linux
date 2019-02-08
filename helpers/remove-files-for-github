@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# remove proprietary documentation
+rm -rf $(find . -type d | grep documentation$)

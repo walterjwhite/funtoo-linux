@@ -1,0 +1,7 @@
+# this must be installed after we have created the /boot/grub directory
+# otherwise the installation will fail
+media-gfx/grub-splashes
+
+sys-boot/plymouth
+sys-boot/plymouth-openrc-plugin
+

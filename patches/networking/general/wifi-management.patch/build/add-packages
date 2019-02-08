@@ -1,0 +1,3 @@
+# this is used to control the interface (scanning, powermanagement)
+net-wireless/iw
+

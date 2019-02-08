@@ -1,0 +1,3 @@
+uri: 'https://raw.githubusercontent.com/munin-monitoring/contrib/master/plugins/chrony/chrony'
+filename: 'chrony-munin-plugin'
+signature: '187eedd332747ce8826d87ddf557247427139809af3534734e3aed38a17befaf'

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd /tmp
+
+# run the clamd instance in the chroot (start)
+/sbin/service clamd start
+
+# initialize the database and ensure it is up-to-date
+freshclam
+
+mkdir -p /var/log/clamav-unofficial-sigs
+chown -R clamav:clamav /var/log/clamav-unofficial-sigs
+
+# initialize the unofficial signatures
+sudo -EH -u clamav /usr/sbin/clamav-unofficial-sigs.sh
+
+# run the clamd instance in the chroot (stop)
+/sbin/service clamd stop

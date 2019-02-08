@@ -1,0 +1,8 @@
+#net-misc/networkmanager
+sys-apps/ifplugd
+net-wireless/wpa_supplicant
+net-misc/dhcpcd
+
+
+# used to run other processes from joining a network
+sys-process/at

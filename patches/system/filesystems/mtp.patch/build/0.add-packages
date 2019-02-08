@@ -1,0 +1,13 @@
+#sys-fs/mtpfs
+sys-fs/jmtpfs
+#sys-fs/simple-mtpfs
+
+# this is for newer android phones
+# adbfs (the github project also didn't work at all)
+# this did not work for any of my devices
+#dev-util/android-tools
+
+# the only thing that worked actually was gphotofs
+# this does not work with RCA
+media-gfx/gphotofs
+

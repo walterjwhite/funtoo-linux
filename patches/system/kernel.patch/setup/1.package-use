@@ -1,0 +1,18 @@
+sys-kernel/genkernel-next plymouth
+sys-apps/util-linux -python
+sys-fs/cryptsetup pwquality -python
+#reencrypt
+
+#>=virtual/libelf-1 abi_x86_32
+
+#app-admin/ego PYTHON_TARGETS: -* python3_4 PYTHON_SINGLE_TARGET: -* python3_4
+#dev-python/appi PYTHON_TARGETS: -* python3_4 PYTHON_SINGLE_TARGET: -* python3_4
+#dev-python/mwparserfromhell PYTHON_TARGETS: -* python3_4 PYTHON_SINGLE_TARGET: -* python3_4
+#dev-python/requests PYTHON_TARGETS: -* python3_4 PYTHON_SINGLE_TARGET: -* python3_4
+
+sys-apps/usbutils -python
+#dev-vcs/git -python
+dev-vcs/git -perl -webdav highlight
+
+#*/* PYTHON_SINGLE_TARGET: -* python2_7
+#*/* PYTHON_TARGETS: -* python2_7 python3_4

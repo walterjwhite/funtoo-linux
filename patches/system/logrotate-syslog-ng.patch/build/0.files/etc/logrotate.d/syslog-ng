@@ -1,0 +1,19 @@
+/var/log/messages {
+    createolddir 755 root root
+    rotate 30
+    daily
+    nocreate
+    missingok
+    ifempty
+    olddir /var/log/messages.old
+    compress
+
+#    To regularly delete logs add the line maxage N to the config file, where N is the number of days after which the log file will be deleted.
+#  delete files older than 30 days
+   maxage 30
+	
+	sharedscripts
+    postrotate
+        /sbin/service syslog-ng reload > /dev/null 2>&1 || true
+    endscript
+}

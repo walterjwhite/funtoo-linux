@@ -1,0 +1,2 @@
+# ensure the system is updated
+0 1 * * * /usr/sbin/restart-services 2>&1 | /usr/bin/wjw-log "restart-services (daily @1am)"

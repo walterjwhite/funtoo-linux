@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# ignore git files
+# ignore etc/init.d scripts
+grep "@TODO" . -r | sed -e "s/\:.*$//" | grep -v "^./\.git" | sort -u

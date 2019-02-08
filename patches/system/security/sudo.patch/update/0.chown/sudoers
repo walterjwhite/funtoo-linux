@@ -1,0 +1,4 @@
+path: /etc/sudoers
+recursive: True
+owner: root
+group: root

@@ -1,0 +1,4 @@
+mountPoint: /home
+device: LABEL=home
+vfsType: EXT4
+options: nofail

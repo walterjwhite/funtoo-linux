@@ -1,0 +1,4 @@
+path: /etc/cron.monthly
+recursive: True
+owner: root
+group: root

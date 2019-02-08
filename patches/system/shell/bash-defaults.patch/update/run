@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for user in $(awk -F':' '/users/{print $4}' /etc/group | sed -e "s/,/\n/g")
+do
+	user_home_directory=$(grep $user /etc/passwd | awk -F ':' {'print$6'})
+	if [ -e "$_user_home_directory" ]
+	then
+		tar cp -C /etc/skel . | tar xp -C $_user_home_directory
+		chown -R $user:$user $_user_home_directory
+	fi
+done

@@ -1,0 +1,1 @@
+@reboot echo "/sbin/service logstash start" | at now + 5 min | /usr/bin/wjw-log 'start-logstash (@cron.reboot)'

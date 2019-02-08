@@ -1,0 +1,2 @@
+path: /etc/cron.monthly
+mode: 750

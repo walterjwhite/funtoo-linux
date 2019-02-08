@@ -1,0 +1,19 @@
+#!/bin/bash
+
+LOGGER_TAG=$1
+shift
+
+_do_log_() {
+	logger -t "$LOGGER_TAG" -e "$1"
+}
+
+if [ "$#" -eq "0" ]
+then
+#	while read in
+#	do
+#		_do_log_ $in
+#	done
+	exit 0
+else
+	_do_log_ "$@"
+fi

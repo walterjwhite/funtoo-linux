@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# set nano as the system default
+eselect visual set /bin/nano
+eselect editor set /bin/nano

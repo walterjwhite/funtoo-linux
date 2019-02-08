@@ -1,0 +1,96 @@
+#!/bin/bash
+
+##################################################
+# ensure the configuration is updated
+# this causes problems with /etc/ego.conf
+###etc-update --automode -5
+
+##################################################
+# cleanup other stuff
+rm -rf /usr/src/linux-debian-sources*
+rm -f  /boot/*debian-sources*
+
+rm -f /usr/src/linux
+
+##################################################
+# link kernel
+latest_kernel=$(ls /usr/src | grep gentoo | sort -V | tail -1)
+ln -sf $latest_kernel /usr/src/linux
+
+##################################################
+# configure kernel
+_zfs=$(grep zfs /etc/portage -r | wc -l)
+if [ "$_zfs" -gt "0" ]
+then
+	cp /tmp/kernel.config.zfs /usr/src/linux/.config
+else
+	if [ -e /tmp/is-32-bit ]
+	then
+		cp /tmp/kernel.config.32 /usr/src/linux/.config
+	else
+		cp /tmp/kernel.config /usr/src/linux/.config
+	fi
+fi
+
+cd /usr/src/linux
+
+##################################################
+# check if kernel needs rebuilt
+make oldconfig
+#_new_config=$(md5sum .config | awk {'print$1')
+_new_config=$(md5sum .config | grep -Po "[\w]{1,}" | head -1)
+
+echo -e "new config:$_new_config"
+
+_latest_kernel_version=$(echo -e $latest_kernel | sed -e "s/linux\-//")
+
+if [ -e /etc/kernels/kernel-config-x86_64-${_latest_kernel_version} ]
+then
+	#_old_config=$(md5sum /etc/kernels/kernel-config-x86_64-${_latest_kernel_version} | awk {'print$1'})
+	_old_config=$(md5sum /etc/kernels/kernel-config-x86_64-${_latest_kernel_version} | grep -Po "[\w]{1,}" | head -1)
+else
+	_old_config="not built"
+fi
+
+echo -e "old config:$_old_config"
+
+if [ "$_new_config" != "$_old_config" ]
+then
+	# build new kernel
+	# use custom linuxrc to mount squashfs root with an overlayfs
+	# no longer mount boot to avoid problems later on ...
+	genkernel all --install --kernel-config=/tmp/kernel.config --compress-initramfs-type=lzma --lvm --luks --linuxrc=/usr/share/genkernel/walterjwhite/linuxrc --no-mountboot
+else
+    echo -e "New kernel configuration is identical to the old one: $_new_config / $_old_config"
+fi
+
+##################################################
+# cleanup
+cd /tmp
+
+# finally, cleanup kernel configuration
+rm -f /tmp/kernel.config
+
+# delete the old kernel modules
+for k in $(ls /lib/modules | grep -v $_latest_kernel_version)
+do
+    if [ -n "$k" ]
+    then
+		# remove both the old kernel / init in /boot as well as the modules in /lib/modules
+        rm -rf /lib/modules/$k /boot/*${k}
+    fi
+done
+
+# uninstall older packages
+_latest_kernel_version_wo_name=$(echo -e $_latest_kernel_version | sed -e "s/\-gentoo.*$//")
+
+if [ -e /var/lib/portage/world ]
+then
+	emerge --depclean "<sys-kernel/gentoo-sources-${_latest_kernel_version_wo_name}"
+fi
+
+# also remove the source files
+for k in $(ls /usr/src | grep -Pv "^linux$" | grep -v $latest_kernel)
+do
+	rm -rf /usr/src/$k
+done

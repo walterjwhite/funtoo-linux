@@ -1,0 +1,6 @@
+app-shells/zsh
+app-shells/zsh-completions
+app-shells/gentoo-zsh-completions
+
+# this appears to have been dropped
+#app-shells/funtoo-zsh-completions

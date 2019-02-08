@@ -1,0 +1,4 @@
+path: /etc/cron.deny
+recursive: True
+owner: root
+group: root

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# compares all of the patches that have specified variant systems
+
+if [ "$#" -ne "2" ]
+then
+	echo -e "Please specify exactly 2 arguments"
+	exit 1
+fi
+
+_system_1=$1
+_system_2=$2
+
+meld systems/$_system_1 systems/$_system_2
+
+# find all matching patches
+_patches=$(find patches -type d | grep -P "variants/($_system_1|$_system_2)$" | sed -e "s/\/variants.*$//" | sort -u)
+
+# compare at the patch level
+for _patch in ${_patches[@]}
+do
+	echo -e "$_patch"
+	
+	meld $_patch/variants/$_system_1 $_patch/variants/$_system_2 2>/dev/null
+done

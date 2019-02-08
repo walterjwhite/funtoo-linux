@@ -1,0 +1,3 @@
+net-analyzer/munin syslog -minimal
+net-analyzer/rrdtool graph -python -perl
+>=net-analyzer/rrdtool-1.7.0 perl

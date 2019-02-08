@@ -1,0 +1,1 @@
+@reboot echo "/sbin/service elasticsearch start" | at now + 5 min | /usr/bin/wjw-log 'start-elasticsearch (@cron.reboot)'

@@ -1,0 +1,7 @@
+sys-fs/cryptsetup
+app-arch/lz4
+sys-kernel/genkernel-next
+##sys-kernel/hardened-sources
+sys-kernel/gentoo-sources
+#sys-kernel/ck-sources
+

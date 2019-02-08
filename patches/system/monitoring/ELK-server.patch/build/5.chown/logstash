@@ -1,0 +1,4 @@
+path: /var/log/logstash
+owner: logstash
+group: logstash
+recursive: True

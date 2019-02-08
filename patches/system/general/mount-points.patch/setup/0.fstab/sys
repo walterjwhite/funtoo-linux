@@ -1,0 +1,3 @@
+mountPoint: /sys
+device: sysfs
+vfsType: SYSFS

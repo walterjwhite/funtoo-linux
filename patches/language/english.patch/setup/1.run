@@ -1,0 +1,13 @@
+#!/bin/bash
+
+_contains=$(grep -Pc "^en_US" /etc/locale.gen)
+if [ "$_contains" -eq "0" ]
+then
+#	echo "en_US ISO-8859-1"  >> /etc/locale.gen
+	echo "en_US UTF-8" >> /etc/locale.gen
+fi
+
+locale-gen
+
+# set the default locale
+eselect locale set en_US.utf8

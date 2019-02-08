@@ -1,0 +1,11 @@
+#!/bin/bash
+
+use=""
+
+# check for broken links
+for file in $(find . -type f | grep \\.patch | grep system.use$)
+do
+	use=$(echo -e "$use\n"$(cat $file | grep -v "^#.*$" | grep -v "^$"))
+done
+
+echo -e $use

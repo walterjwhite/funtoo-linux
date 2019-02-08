@@ -1,0 +1,17 @@
+use:
+ - symlink
+# - -python
+# these are for gcc
+ - -fortran
+ - -openmp
+ - acpi
+
+# cutting back use of system-wide python support
+# - python_targets_python2_7
+
+# required for genkernel-next
+#pythonSingleTarget: python2_7
+#pythonSingleTarget: python_single_target_python2_7
+
+#pythonTargets:
+# - python2_7

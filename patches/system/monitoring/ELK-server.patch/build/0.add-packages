@@ -1,0 +1,10 @@
+# these packages pull in a UI
+app-misc/elasticsearch
+
+# this is used for ingesting logs from filebeat / logstash-forwarder
+app-admin/logstash-bin
+
+www-apps/kibana-bin
+
+# utility to aid in management of time-series
+dev-python/elasticsearch-curator

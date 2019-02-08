@@ -1,0 +1,5 @@
+# /usr/portage moved to /var/cache/portage
+mountPoint: /var/cache/portage
+device: LABEL=portage
+vfsType: EXT4
+options: nofail

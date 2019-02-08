@@ -1,0 +1,2 @@
+path: /etc/cron.daily
+mode: 750

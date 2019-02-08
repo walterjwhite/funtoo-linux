@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# install grub on the boot device (requires device to be present)
+# boot device is where the MBR will go
+##BOOT_DEVICE=/dev/sda
+##grub2-install --boot-directory=/boot --no-floppy $BOOT_DEVICE

@@ -1,0 +1,2 @@
+# ensure the system is updated
+@daily /usr/sbin/update-system 2>&1 | /usr/bin/wjw-log "update-system (daily)"

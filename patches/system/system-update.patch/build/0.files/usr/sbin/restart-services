@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# restarts all services in /etc/restart-service IF
+# the service is enabled in the default runlevel OR
+# the service crashed, is running is forked, or is starting
+_restart_services_() {
+	/usr/bin/wjw-log "restart-service" "starting restart of selected services"
+	for _service in $(ls /etc/restart-service | sort -u)
+	do
+		_restart_service_
+	done
+
+	/usr/bin/wjw-log "restart-service" "completed restart of selected services"
+}
+
+_restart_service_() {
+	source /etc/restart-service/$_service
+	
+	_is_restart_
+	if [ "$?" -eq "1" ]
+	then
+		if [ -z "$_COMMAND" ]
+		then
+			_COMMAND="/usr/sbin/restart-service $SERVICE"
+		fi
+
+		if [ -z "$SERVICE_TIMEOUT" ]
+		then
+			SERVICE_TIMEOUT=30
+		fi
+		
+		timeout $SERVICE_TIMEOUT $_COMMAND 2>&1 | /usr/bin/wjw-log "restart-service: $_service"
+	else
+		/usr/bin/wjw-log "restart-service: $_service" "not restarting service as it is not enabled or (running, crashed)"
+	fi
+	
+	unset _COMMAND
+	unset SERVICE
+	unset SERVICE_TIMEOUT
+}
+
+_is_restart_() {
+	if [ -e /etc/runlevels/default/$SERVICE ]
+	then
+		return 1
+	fi
+	
+	timeout 1 /sbin/service $_service status 2>&1 > /dev/null
+	_status=$?
+	
+	case $_status in
+		32|0|8|124)
+			return 1
+			;;
+		*)
+			return 0
+			;;
+	esac
+}
+
+_restart_services_

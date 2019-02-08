@@ -1,0 +1,4 @@
+mountPoint: /dev/pts
+device: devpts
+vfsType: DEVPTS
+options: gid=5,mode=620

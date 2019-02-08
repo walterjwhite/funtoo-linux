@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# ignore git files
+# ignore etc/init.d scripts
+grep "init\\.d" . -r 2>/dev/null \
+| grep -v "ln " \
+| grep -v "^.*:#" \
+| sed -e "s/\:.*$//" \
+| grep -v "./\.git" \
+| grep -Pv "^\./helpers" \
+| grep -v "etc/slim.conf" \
+| grep -v "etc/sysconfig" \
+| grep -v "etc/conf.d" \
+| sort -u

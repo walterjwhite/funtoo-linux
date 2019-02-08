@@ -1,0 +1,5 @@
+runlevel: boot
+runlevelAction: Add
+# this also adds lvmetad
+serviceName: lvm
+

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for tag in $(find patches -type f | grep \\tags)
+do
+	size=$(ls -l $tag | awk {'print$5'})
+	if [ "$size" -eq "0" ]
+	then
+		echo -e "$tag"
+		geany $tag
+	fi
+done

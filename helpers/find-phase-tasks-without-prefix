@@ -1,0 +1,32 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# check for phases with multiple tasks that are not prefixed with a number as they may have problems later on
+# ie. trying to add a user to a group before first creating the user ...
+
+
+for dir in $(find . -type d | grep -P "(\\.patch|variants/.*)/(build|setup|update|validate)$")
+do
+	_count=$(ls $dir | wc -l)
+	
+	if [ "$_count" -gt "1" ]
+	then
+		_prefixed=1
+		for task in $(ls $dir)
+		do
+			_is_number=$(echo -e $task | grep -Pc "^[\d]{1}")
+			
+			if [ "$_is_number" -eq "0" ]
+			then
+				_prefixed=0
+				break
+			fi
+		done
+		
+		if [ "$_prefixed" -eq "0" ]
+		then
+			echo -e $dir
+		fi
+	fi
+done

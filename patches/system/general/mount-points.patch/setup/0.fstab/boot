@@ -1,0 +1,4 @@
+mountPoint: /boot
+device: LABEL=boot
+vfsType: EXT4
+options: nofail

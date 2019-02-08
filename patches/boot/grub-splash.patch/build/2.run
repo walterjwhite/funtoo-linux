@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# enable plymouth
+sed -i "s/^#.*PLYMOUTH\=.*$/PLYMOUTH\=\"yes\"/"             /etc/genkernel.conf
+
+# use spinner as the theme
+#sed -i "s/^#.*PLYMOUTH_THEME\=.*$/PLYMOUTH_THEME\=\"spinner\"/" /etc/genkernel.conf
+sed -i "s/^#.*PLYMOUTH_THEME\=.*$/PLYMOUTH_THEME\=\"gentoo-logo\"/" /etc/genkernel.conf
+# plymouth-set-default-theme --list
+
+# rebuild the initramfs
+# @TODO: rather than build it twice, build it once
+genkernel initramfs --install --kernel-config=/usr/src/linux/.config --compress-initramfs-type=lzma --lvm --luks --linuxrc=/usr/share/genkernel/walterjwhite/linuxrc --no-mountboot --plymouth

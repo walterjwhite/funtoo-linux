@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# check for broken links
+for patch in $(find patches -type d | grep \\.patch$)
+do
+	_tag_file=$patch/tags
+	
+	if [ ! -e $_tag_file ]
+	then
+		touch $_tag_file
+		
+		echo -e $patch
+		geany $_tag_file
+	fi
+done

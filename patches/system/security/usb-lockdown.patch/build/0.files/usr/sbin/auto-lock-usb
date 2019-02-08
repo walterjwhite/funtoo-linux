@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -e /etc/network/network/lock-usb ]
+then
+	echo -e "Network requires the USB ports to be locked down."
+	/usr/sbin/lock-usb
+else
+	echo -e "Network does NOT require the USB ports to be locked down."
+fi

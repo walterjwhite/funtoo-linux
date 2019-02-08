@@ -1,0 +1,2 @@
+# will be migrating toward ipv6, -ipv6
+app-admin/syslog-ng -json -ssl -tcpd

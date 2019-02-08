@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ensure we don't already have the contents in /etc/skel/.zshrc
+if [ -e /etc/skel/.zshrc ]
+then
+	_contains=$(grep -c zsh.patch /etc/skel/.zshrc)
+	
+	if [ "$_contains" -eq "0" ]
+	then
+		cat /tmp/.zshrc >> /etc/skel/.zshrc
+	fi
+fi
+
+# finally, cleanup
+rm -f /tmp/.zshrc

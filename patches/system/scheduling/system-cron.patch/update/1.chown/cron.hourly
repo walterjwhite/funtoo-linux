@@ -1,0 +1,4 @@
+path: /etc/cron.hourly
+recursive: True
+owner: root
+group: root

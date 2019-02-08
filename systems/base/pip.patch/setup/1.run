@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd /tmp
+
+#rm -rf /opt/virtualenv/production
+# upgraded to python3 because sysstatus requires python3 to work
+virtualenv -p python3 -q /opt/virtualenv/production
+

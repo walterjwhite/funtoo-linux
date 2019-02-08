@@ -1,0 +1,11 @@
+# https://build.funtoo.org/funtoo-current/pure64/generic_64-pure64/
+
+variant: Pure64
+build:   Current
+
+subArchitecture: Generic_64
+# not supported in this version
+#mirrors:
+# - http://gentoo.osuosl.org
+# - http://mirrors.evowise.com/gentoo
+# - http://www.gtlib.gatech.edu/pub/gentoo

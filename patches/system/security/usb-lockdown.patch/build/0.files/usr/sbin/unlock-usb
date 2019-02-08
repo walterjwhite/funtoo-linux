@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# @see: https://www.kernel.org/doc/Documentation/usb/authorization.txt
+
+# by default, do NOT authorize USB devices
+for d in $(ls /sys/bus/usb/devices/ | grep "usb.*")
+do
+	echo 1 > /sys/bus/usb/devices/$d/authorized_default
+done

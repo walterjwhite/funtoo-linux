@@ -1,0 +1,3 @@
+use:
+ - lvm
+ - device-mapper

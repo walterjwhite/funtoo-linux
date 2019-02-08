@@ -1,0 +1,2 @@
+# ensure the console is cleared after logging out
+clear_console

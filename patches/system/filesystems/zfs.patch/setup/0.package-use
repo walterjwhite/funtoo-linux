@@ -1,0 +1,3 @@
+# I am not using zfs for a root filesystem, but instead drives I plugin storing content (media, projects, etc.)
+#sys-fs/zfs-kmod -rootfs
+sys-fs/zfs -rootfs kernel-builtin

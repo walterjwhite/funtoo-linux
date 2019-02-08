@@ -1,0 +1,4 @@
+# put consoles into powersave just like we do in Xorg
+# NOTE: this is also set on the kernel commandline, consoleblank=300
+setterm --blank 5
+

@@ -1,0 +1,3 @@
+# we're not using a hardened kernel anyways
+# additionally, packages need the newer gcc 5+ API, so this causes conflicts
+#hardened

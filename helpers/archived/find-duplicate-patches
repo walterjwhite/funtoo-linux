@@ -1,0 +1,57 @@
+#!/bin/env /usr/bin/python3
+
+import collections
+import os
+
+
+def find():
+    patches = []
+    patch_names = []
+    
+    for root, directories, files in sorted(os.walk('patches')):
+        for directory in directories:
+            if directory.endswith(".patch"):
+                patch = os.path.join(root, directory)
+                
+                patch_name = __get_patch_name__(patch)
+                
+                patches.append(patch)
+                patch_names.append(patch_name)
+                
+    patch_count = collections.Counter(patch_names)
+    duplicate_patch_names = [i for i in patch_count if patch_count[i] > 1]
+    
+    #print(duplicate_patch_names)
+    
+    duplicate_patches = {}
+    for duplicate_patch_name in duplicate_patch_names:
+        duplicate_patches[duplicate_patch_name] = __get_matching__(duplicate_patch_name, patches)
+        
+        print(duplicate_patch_name)
+        for duplicate_patch in duplicate_patches[duplicate_patch_name]:
+            print('\t{}'.format(duplicate_patch))
+        
+        print()
+        
+        
+    
+    #print(duplicate_patches)
+
+
+def __get_patch_name__(patch):
+    return(patch.split('/')[-1])
+
+def __get_matching__(match_patch_name, patches):
+    matches = []
+    #for i,value in enumerate(patches):
+    for patch in patches:
+        #print(i)
+        patch_name = __get_patch_name__(patch)
+        
+        if patch_name == match_patch_name:
+            matches.append(patch)
+
+    return(matches)
+
+
+find()

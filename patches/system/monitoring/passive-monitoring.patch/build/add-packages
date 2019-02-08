@@ -1,0 +1,11 @@
+sys-process/nmon
+net-analyzer/p0f
+
+# not actively used
+# use tcpdump instead
+#net-analyzer/netsniff-ng
+
+net-analyzer/dsniff
+
+#pads
+net-analyzer/tcpflow

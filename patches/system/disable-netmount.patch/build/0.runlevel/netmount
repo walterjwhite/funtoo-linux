@@ -1,0 +1,4 @@
+serviceName: netmount
+runlevel: default
+runlevelAction: Remove
+

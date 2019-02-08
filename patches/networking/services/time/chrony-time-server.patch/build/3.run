@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# generate chrony keys
+chronyc keygen > /etc/chrony/chrony.keys

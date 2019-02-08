@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+#find patches -type f | grep \\.patch | grep -P "(\\.patch|variants/.*)/(build|setup|finalize|update)" | grep -Pv "(documentation|files/|links/|chmod/|chown/|add-packages$|remove-packages$|runlevel/|run$|pip$|package-use$|package-mask$|package-unmask$|package-accept-keywords$|system-use$|epro-mixin/|epro-flavor/|fstab/|hostname$|downloads/)"
+find patches -type f | grep -P "(\\.patch|variants/.*)/(build|setup|finalize|update)/" | grep -Pv "(documentation|files/|links/|chmod/|chown/|add-packages$|remove-packages$|runlevel/|run$|pip$|package-use$|package-mask$|package-unmask$|package-accept-keywords$|system-use$|package-license$|epro-mixin/|epro-flavor/|eselect/|fstab/|hostname$|downloads/|users/|groupadd/|groups/|replace/)"

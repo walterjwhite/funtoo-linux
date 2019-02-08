@@ -1,0 +1,5 @@
+=dev-libs/userspace-rcu-0.8.6 ~amd64 ~x86
+# not actively used
+#=net-analyzer/netsniff-ng-0.5.9 ~amd64
+=net-libs/nacl-0_p20110221 ~amd64 ~x86
+=sys-process/nmon-15g ~amd64 ~x86

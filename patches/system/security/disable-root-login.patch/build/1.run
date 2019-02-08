@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# change root shell to /sbin/nologin, effectively disabling root
+chsh -s /sbin/nologin root

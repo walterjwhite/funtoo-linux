@@ -1,0 +1,24 @@
+/var/log/argus/argus.out {
+    createolddir 755 root root
+    rotate 30
+    daily
+    nocreate
+    missingok
+    ifempty
+    olddir /var/log/argus/old
+
+    # no compression is required since the argus files are already binary
+    # only retain logs for 30 days
+    maxage 30
+    
+    sharedscripts
+    
+    # ensure the argus file is clean before rotating it
+    prerotate
+        /usr/sbin/stop-service argus > /dev/null 2>&1 || true
+    endscript
+    
+    postrotate
+        /usr/sbin/restart-service argus > /dev/null 2>&1 || true
+    endscript
+}

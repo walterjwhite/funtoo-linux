@@ -1,0 +1,3 @@
+serviceName: chronyd
+runlevel: default
+runlevelAction: Add

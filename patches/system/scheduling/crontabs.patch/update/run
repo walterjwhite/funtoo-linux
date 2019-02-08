@@ -1,0 +1,37 @@
+#!/bin/bash
+
+cd /tmp
+
+rm -rf /tmp/crontab
+mkdir -p /tmp/crontab
+
+# setup crontabs
+for user in $(ls /etc/crontabs)
+do
+	# setup permissions
+	chown -R $user:crontab /etc/crontabs/$user
+	
+	# clear the crontab
+	crontab -r -u $user 2>/dev/null
+	
+	_temp_crontab=/tmp/crontab/$user
+	
+	# set the PATH
+	if [ "$user" = "root" ]
+	then
+		echo "PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/bin" >> $_temp_crontab
+	else
+		echo "PATH=/usr/local/bin:/usr/bin:/bin:/opt/bin"                                 >> $_temp_crontab
+	fi
+	
+	for script in $(ls /etc/crontabs/$user)
+	do
+		cat /etc/crontabs/$user/$script >> $_temp_crontab
+	done
+	
+	#(crontab -l -u $user;cat /etc/crontabs/$user/$script) | crontab -u $user
+	crontab -u $user $_temp_crontab
+	rm -f $_temp_crontab
+done
+
+rm -rf /tmp/crontab

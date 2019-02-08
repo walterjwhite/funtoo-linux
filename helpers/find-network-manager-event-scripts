@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# finds all of the files (or links) that NetworkManager will execute for the appropriate event
+if [ "$#" -eq "1" ]
+then
+	_events="${1}$"
+else
+	_events="(connectivity-change|up|down|hostname|dhcp4-change)$"
+fi
+
+for d in $(find . -type d | grep "etc/network/" | grep -P "${_events}")
+do
+	find $d -type f
+done

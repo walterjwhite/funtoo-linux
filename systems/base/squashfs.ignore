@@ -1,0 +1,23 @@
+# in the event out cleanup process failed
+tmp/.*
+
+# save space
+usr/portage/.*
+usr/src/.*
+
+projects/.*
+
+# in the event the fs did not get unmounted
+dev/.*
+sys/.*
+proc/.*
+run/.*
+
+var/log/.*
+
+# this is used for ebuilds and takes up significant space
+var/tmp/portage/.*
+var/cache/portage/distfiles/.*
+
+# meta-repos
+var/git/.*

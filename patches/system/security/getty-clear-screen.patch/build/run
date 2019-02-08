@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# the first virtual console is always available whereas the others are available in higher runlevels
+# clear the screen for security reasons (this used to be for the sysstatus patch)
+sed -i "s/ \-\-noclear//" /etc/inittab

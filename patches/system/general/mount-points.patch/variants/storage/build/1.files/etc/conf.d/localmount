@@ -1,0 +1,3 @@
+# for some reason, dmcrypt is not running before localmount which makes it kinda useless
+rc_need="dmcrypt"
+

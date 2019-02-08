@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# ensure we don't already have the contents in /etc/skel/.zshrc
+if [ -e /etc/skel/.zshrc ]
+then
+	_contains=$(grep -c keychain /etc/skel/.zshrc)
+	
+	if [ "$_contains" -gt "0" ]
+	then
+		exit 0
+	fi
+fi
+
+echo 'eval $(keychain --eval --agents ssh id_ecdsa)' >> /etc/skel/.zshrc
+	

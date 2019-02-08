@@ -1,0 +1,2 @@
+1. goals
+   a. ensure chrony properly configures / selects NTP server based on network

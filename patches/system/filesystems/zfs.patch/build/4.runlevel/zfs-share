@@ -1,0 +1,4 @@
+serviceName: zfs-share
+runlevel: default
+runlevelAction: Add
+

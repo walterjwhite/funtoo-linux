@@ -1,0 +1,3 @@
+serviceName: haveged
+runlevel: default
+runlevelAction: Add

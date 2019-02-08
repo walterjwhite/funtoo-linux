@@ -1,0 +1,1 @@
+@reboot /usr/sbin/enable-nic-offloading 2>&1 | /usr/bin/wjw-log "/usr/sbin/enable-nic-offloading (cron.reboot)"

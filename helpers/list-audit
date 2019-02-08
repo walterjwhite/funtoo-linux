@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# records by year descending
+_year="$1"
+
+if [ -z "$_year" ]
+then
+	_year=$(date +%Y)
+fi
+
+echo -e "looking for audit records for $_year:\n"
+
+# check for broken links
+for task in $(find . -type d | grep audit/${_year}$)
+do
+	for file in $(find $task -type f)
+	do
+		echo -e "$file"
+	done | sort -u
+done

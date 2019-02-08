@@ -1,0 +1,78 @@
+#!/bin/bash
+
+set_permissions_for_user() {
+	local _user=$1
+	local _home=$2
+	
+	echo -e "configuring permissions for:$_user ($_home)"
+	
+	# configure user home directory permissions
+	chown -R $_user:$_user $_home
+	chmod 700 $_home
+	
+	# only attempt chmod if the directory exists ...
+	if [ -d "$_home/.ssh" ]
+	then
+		chmod 700 $_home/.ssh
+		
+		# ensure id files are only read/write by the given user
+		chmod 600 $_home/.ssh/id* --silent
+		
+		if [ -e "$_home/.ssh/authorized_keys" ]
+		then
+			chmod 600 $_home/.ssh/authorized_keys
+		fi
+	fi
+}
+
+setup_gnome_settings() {
+	local _user=$1
+	local _home=$2
+	
+	mkdir -p $_home/.local/bin/
+	
+	# setup gnome settings
+	if [ -d "/tmp/gnome-settings/$_user" ]
+	then
+		for file in $(ls "/tmp/gnome-settings/$_user")
+		do
+			# filter comments and blank lines
+			grep -Pv "^#" "/tmp/gnome-settings/$_user/$file" | grep -Pv "^$" | sed -e "s/^/gsettings set /" >> $_home/.local/bin/apply-gnome-settings
+		done
+		
+		# finally, make the script executable
+		chmod +x $_home/.local/bin/apply-gnome-settings
+	fi
+}
+
+run_scripts() {
+	# run other custom scripts
+	if [ -e /tmp/users ]
+	then
+		for executable in $(find /tmp/users -type f)
+		do
+			sh $executable
+		done
+	fi
+}
+
+configure_user() {
+	setup_gnome_settings $1 $2
+	set_permissions_for_user $1 $2
+}
+
+configure_users() {
+	for USER in $(ls /home)
+	do
+		configure_user $USER "/home/$USER"
+	done
+}
+
+configure_users
+configure_user "root" "/root"
+
+run_scripts
+
+
+# cleanup
+rm -rf /tmp/users

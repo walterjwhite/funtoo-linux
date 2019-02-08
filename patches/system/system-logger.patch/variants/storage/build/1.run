@@ -1,0 +1,7 @@
+#!/bin/bash
+
+_contains=$(grep -Pc s_net /etc/syslog-ng/syslog-ng.conf)
+if [ "$_contains" -eq "0" ]
+then
+	cat /tmp/syslog-ng.conf >> /etc/syslog-ng/syslog-ng.conf
+fi

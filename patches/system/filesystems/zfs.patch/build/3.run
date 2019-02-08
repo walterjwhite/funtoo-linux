@@ -1,0 +1,22 @@
+#!/bin/bash
+
+_latest_kernel=$(ls /usr/src | grep gentoo | sort -V | tail -1 | sed -e "s/^linux\-//")
+if [ ! -e /lib/modules/$_latest_kernel/extra/zfs/zfs.ko ]
+then
+	# rebuild zfs to ensure there are modules
+	emerge sys-fs/zfs sys-fs/zfs-kmod sys-kernel/spl --quiet -v
+else
+	echo "ZFS kernel modules appear to already be built."
+fi
+
+if [ -e /etc/conf.d/zfs ]
+then
+	_contains_zpool_import=$(grep -Pc "^ZFS_POOL_IMPORT" /etc/conf.d/zfs)
+# update the ZFS configuration, provide a list of pools to import automatically
+#	if [ "$_contains_zpool_import" -eq "0" ]
+#	then
+#		#echo -e "ZFS_POOL_IMPORT=${_ZFS_IMPORT_VOLUMES}" >> /etc/conf.d/zfs
+#	fi
+else
+	echo -e "ZFS not installed"
+fi

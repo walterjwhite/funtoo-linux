@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# ethtool -k eth0
+#
+
+for device in $(ip link show up | grep UP | awk {'print$2'} | sed -e "s/:$//" | grep -Pv "^lo$")
+do
+	#ethtool -K ${device} rx on tx on sg on tso on ufo on gso on gro on lro on rxhash on
+	# https://www.coverfire.com/articles/queueing-in-the-linux-network-stack
+	ethtool -K ${device} tso off ufo off gso off gro off
+done

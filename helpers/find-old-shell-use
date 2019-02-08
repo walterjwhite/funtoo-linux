@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+grep '`' . -r \
+| grep -v helpers/find-old-shell-use \
+| grep -v .git \
+| grep -v "^Binary file"

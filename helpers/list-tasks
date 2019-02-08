@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+# active, pending, completed, cancelled
+_status="$1"
+
+if [ -z "$_status" ]
+then
+	_status="active"
+fi
+
+echo -e "looking for $_status tasks:\n"
+
+# check for broken links
+for task in $(find . -type d | grep tasks/${_status}$)
+do
+	for file in $(find $task -type f)
+	do
+		echo -e "$file"
+	done
+done | sort -u

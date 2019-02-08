@@ -1,0 +1,53 @@
+#!/bin/bash
+
+source helpers/libraries/helper-lib.sh
+
+if [ "$#" -ne "1" ]
+then
+	echo -e "Please specify the system to query"
+	exit 1
+fi
+
+_system=$1
+shift
+
+_systems="base\n$1"
+
+_PATCH_TEMP_FILE=/tmp/patches
+
+# cleanup first
+rm -f $_PATCH_TEMP_FILE
+
+for _system in $(echo -e $_systems)
+do
+	for _patch in $(grep -v "^$" systems/$_system/patches | grep -v "^#")
+	do
+		_is_patch=$(echo -e $_patch | grep -c \\.patch$)
+		
+		if [ "$_is_patch" -eq "1" ]
+		then
+			echo -e $_patch >> $_PATCH_TEMP_FILE
+		else
+			if [ ! -e patches/$_patch ]
+			then
+				echo -e "patches/$_patch" >> $_PATCH_TEMP_FILE
+			else
+				find patches/$_patch -type d | grep \\.patch$ | sed -e "s/patches\///" >> $_PATCH_TEMP_FILE
+			fi
+		fi
+	done
+done
+
+for p in $(cat $_PATCH_TEMP_FILE | sort -u | sed -e "s/^/patches\//")
+do
+	# check the patch actually exists
+	if [ ! -e $p ]
+	then
+		_p=$(echo -e $p | sed -e "s/patches\///")
+		echo -e "NE:$p $(grep -H $_p systems/{base,$_system}/patches | sed -e 's/\:.*$//' | sed -e 's/systems\///' | sed -e 's/\/patches//')"
+	else
+		echo -e $p
+	fi
+done
+
+rm -f $_PATCH_TEMP_FILE

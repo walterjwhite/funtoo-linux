@@ -1,0 +1,12 @@
+#!/bin/bash
+
+PACKAGES=""
+
+for package_file in `find patches -type f | grep packages$`
+do
+	#echo -e $package_file
+	_NEW_PACKAGES=$(grep -v "^$" $package_file | grep -v "^#")
+	PACKAGES="${PACKAGES} ${_NEW_PACKAGES}"
+done
+
+echo -e $PACKAGES

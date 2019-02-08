@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# go ahead and pre-make the man -k cache (#455968)
+rm -rf  /var/cache/man
+mkdir -p /var/cache/man
+
+chown -R man:man /var/cache/man
+
+/usr/bin/mandb -q

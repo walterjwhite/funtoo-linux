@@ -1,0 +1,6 @@
+hosts:
+ - storage
+
+installationPath: /var/cache/builds
+
+devices:
