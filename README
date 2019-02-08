@@ -1,8 +1,9 @@
-This project contains a partial sample configuration for building a fully functional Funtoo image from a stage 3 tarball.
+This project contains a partial sample configuration for building a fully functional Funtoo image from a stage 3 tarball in an automated and consistent manner (and allow relatively painless migration from one flavor of Linux to another).
+
 Due to the sheer number of patches for my systems, it is unlikely a full release will be published.
 
 This configuration is based off of a storage variant from 2018/07/20 which provides an iSCSI service.
-This system doesn't do anything else other than storage, so it is a good reference system to illustrate capabilities of the linux-builder application (which also supports Ubuntu, Debian, and Gentoo, provided the patches are tweaked for the right paths / application names, FreeBSD support is in the works)
+This system configuration doesn't do anything else other than storage, so it is a good reference system to illustrate capabilities of the linux-builder application (which also supports Ubuntu, Debian, and Gentoo, provided the patches are tweaked for the right paths / application names, FreeBSD support is in the works)
 
 
 In order to "build" this image, the linux-builder/modules/cli/providers/guice must be built and run via java -jar.
